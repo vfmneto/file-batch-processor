@@ -8,6 +8,7 @@ import br.com.vfmneto.filebatchprocessor.model.InputFile;
 import br.com.vfmneto.filebatchprocessor.model.OutputDataFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 import static java.util.Collections.EMPTY_LIST;
 import static java.util.Collections.unmodifiableList;
 
+@Component
 public class FileComponentImpl implements FileComponent {
 
     private static final Logger log = LoggerFactory.getLogger(FileComponentImpl.class);

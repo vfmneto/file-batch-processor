@@ -11,18 +11,18 @@ import static br.com.vfmneto.filebatchprocessor.mapper.MapperConstants.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SalesmanFieldSetMapperTest {
+class SalesmanFieldSetMapperImplTest {
 
     private static final String SAMPLE_TYPE = "002";
     private static final String SAMPLE_CPF = "1234567801";
     private static final String SAMPLE_NAME = "SAMPLE SALESMAN NAME";
     private static final String SAMPLE_SALARY = "5000.50";
 
-    private SalesmanFieldSetMapper mapper;
+    private SalesmanFieldSetMapperImpl mapper;
 
     @BeforeEach
     void setup() {
-        mapper = new SalesmanFieldSetMapper();
+        mapper = new SalesmanFieldSetMapperImpl();
     }
 
     @Test

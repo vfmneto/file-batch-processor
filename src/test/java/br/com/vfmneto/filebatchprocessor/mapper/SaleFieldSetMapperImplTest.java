@@ -1,8 +1,6 @@
 package br.com.vfmneto.filebatchprocessor.mapper;
 
 import br.com.vfmneto.filebatchprocessor.model.SaleItemLineData;
-import br.com.vfmneto.filebatchprocessor.model.SaleLineData;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,18 +14,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.jupiter.api.Assertions.*;
 
-class SaleFieldSetMapperTest {
+class SaleFieldSetMapperImplTest {
 
     public static final String SAMPLE_TYPE = "003";
     private static final String SAMPLE_SALE_ID = "10";
     private static final String SAMPLE_ITEMS = "[1-10-100,2-30-2.5]";
     private static final String SAMPLE_SALESMAN_NAME = "SAMPLE SALESMAN NAME";
 
-    private SaleFieldSetMapper mapper;
+    private SaleFieldSetMapperImpl mapper;
 
     @BeforeEach
     void setup() {
-        mapper = new SaleFieldSetMapper();
+        mapper = new SaleFieldSetMapperImpl();
     }
 
     @Test

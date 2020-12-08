@@ -36,7 +36,7 @@ class FileLineDataMapperImplTest {
 
     @BeforeEach
     void setup() {
-        mapper = new FileLineDataMapperImpl(compositeLineMapperMock, fileComponentMock, applicationPropertiesMock);
+        mapper = new FileLineDataMapperImpl(compositeLineMapperMock, fileComponentMock);
     }
 
     @Test

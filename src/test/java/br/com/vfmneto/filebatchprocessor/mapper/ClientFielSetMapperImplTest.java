@@ -9,18 +9,18 @@ import static br.com.vfmneto.filebatchprocessor.mapper.MapperConstants.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ClientFielSetMapperTest {
+class ClientFielSetMapperImplTest {
 
     public static final String SAMPLE_TYPE = "001";
     public static final String SAMPLE_CNPJ = "12345678000195";
     public static final String SAMPLE_NAME = "SAMPLE CLIENT NAME";
     public static final String SAMPLE_BUSINESS_AREA = "SAMPLE BUSINESS AREA";
 
-    private ClientFielSetMapper mapper;
+    private ClientFielSetMapperImpl mapper;
 
     @BeforeEach
     void setup() {
-        mapper = new ClientFielSetMapper();
+        mapper = new ClientFielSetMapperImpl();
     }
 
     @Test

@@ -5,6 +5,9 @@ import br.com.vfmneto.filebatchprocessor.model.InputDataFile;
 import br.com.vfmneto.filebatchprocessor.model.OutputDataFile;
 import br.com.vfmneto.filebatchprocessor.processor.InputDataFileItemProcessor;
 import br.com.vfmneto.filebatchprocessor.reader.ScanFileInDirectoryItemReader;
+import br.com.vfmneto.filebatchprocessor.tokenizer.ClientLineTokenizer;
+import br.com.vfmneto.filebatchprocessor.tokenizer.SaleLineTokenizer;
+import br.com.vfmneto.filebatchprocessor.tokenizer.SalesmanLineTokenizer;
 import br.com.vfmneto.filebatchprocessor.util.FileComponent;
 import br.com.vfmneto.filebatchprocessor.util.FileComponentImpl;
 import br.com.vfmneto.filebatchprocessor.writer.FileItemWriter;
@@ -17,7 +20,6 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.mapping.PatternMatchingCompositeLineMapper;
-import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.file.transform.LineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,8 +27,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static br.com.vfmneto.filebatchprocessor.mapper.MapperConstants.*;
 
 @Configuration
 @EnableBatchProcessing
@@ -44,6 +44,30 @@ public class BatchConfiguration {
 
     @Autowired
     private ApplicationProperties applicationProperties;
+
+    @Autowired
+    private SalesmanLineTokenizer salesmanLineTokenizer;
+
+    @Autowired
+    private ClientLineTokenizer clientLineTokenizer;
+
+    @Autowired
+    private SaleLineTokenizer saleLineTokenizer;
+
+    @Autowired
+    private SalesmanFieldSetMapper salesmanFieldSetMapper;
+
+    @Autowired
+    private ClientFielSetMapper clientFielSetMapperImpl;
+
+    @Autowired
+    private SaleFieldSetMapperImpl saleFieldSetMapperImpl;
+
+    @Autowired
+    private FileLineDataMapper lineDataMapper;
+
+    @Autowired
+    private FileComponent fileComponent;
 
     @Bean
     public Job readFilesJob() {
@@ -66,9 +90,7 @@ public class BatchConfiguration {
     @Bean
     public ScanFileInDirectoryItemReader fileItemReader() {
         ScanFileInDirectoryItemReader scanFileInDirectoryItemReader =
-                new ScanFileInDirectoryItemReader(lineDataMapper(),
-                                                  fileComponent()
-                );
+                new ScanFileInDirectoryItemReader(lineDataMapper, fileComponent);
         return scanFileInDirectoryItemReader;
     }
 
@@ -79,7 +101,7 @@ public class BatchConfiguration {
 
     @Bean
     public FileItemWriter writer() {
-        return new FileItemWriter(fileComponent());
+        return new FileItemWriter(fileComponent);
     }
 
     @Bean
@@ -87,47 +109,20 @@ public class BatchConfiguration {
         PatternMatchingCompositeLineMapper lineMapper = new PatternMatchingCompositeLineMapper();
 
         Map<String, LineTokenizer> tokenizers = new HashMap<>();
-        tokenizers.put(SALESMAN_TYPE, salesmanTokenizer());
-        tokenizers.put(CLIENT_TYPE, clientTokenizer());
-        tokenizers.put(SALE_TYPE, saleTokenizer());
+        tokenizers.put(SALESMAN_TYPE, salesmanLineTokenizer);
+        tokenizers.put(CLIENT_TYPE, clientLineTokenizer);
+        tokenizers.put(SALE_TYPE, saleLineTokenizer);
 
         lineMapper.setTokenizers(tokenizers);
 
         Map<String, FieldSetMapper> mappers = new HashMap<>();
-        mappers.put(SALESMAN_TYPE, new SalesmanFieldSetMapper());
-        mappers.put(CLIENT_TYPE, new ClientFielSetMapper());
-        mappers.put(SALE_TYPE, new SaleFieldSetMapper());
+        mappers.put(SALESMAN_TYPE, salesmanFieldSetMapper);
+        mappers.put(CLIENT_TYPE, clientFielSetMapperImpl);
+        mappers.put(SALE_TYPE, saleFieldSetMapperImpl);
 
         lineMapper.setFieldSetMappers(mappers);
 
         return lineMapper;
     }
 
-    @Bean
-    public FileLineDataMapper lineDataMapper() {
-        return new FileLineDataMapperImpl(compositeLineMapper(), fileComponent(), applicationProperties);
-    }
-
-    @Bean
-    public FileComponent fileComponent() {
-        return new FileComponentImpl(applicationProperties);
-    }
-
-    private LineTokenizer salesmanTokenizer() {
-        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer("ç");
-        lineTokenizer.setNames(TYPE, CPF, NAME, SALARY);
-        return lineTokenizer;
-    }
-
-    private LineTokenizer clientTokenizer() {
-        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer("ç");
-        lineTokenizer.setNames(TYPE, CNPJ, NAME, BUSINESS_AREA);
-        return lineTokenizer;
-    }
-
-    private LineTokenizer saleTokenizer() {
-        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer("ç");
-        lineTokenizer.setNames(TYPE, SALE_ID, ITEMS, SALESMAN_NAME);
-        return lineTokenizer;
-    }
 }
