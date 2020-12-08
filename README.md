@@ -1,3 +1,4 @@
+[![vfmneto](https://circleci.com/gh/vfmneto/file-batch-processor.svg?style=shield)](https://github.com/vfmneto/file-batch-processor)
 # File Batch Processor
 
 Aplicação desenvolvida para executar processamento em lote de arquivos, para isto o sistema é programado para verificar se chegou novos arquivos, ler, processar e gerar um arquivo com os dados das vendas consolidados.
