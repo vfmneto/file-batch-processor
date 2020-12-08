@@ -5,17 +5,17 @@ jobs:
       - image: circleci/openjdk:11.0.3-jdk-stretch
     steps:
       - checkout
-      - run: mvn clean package
+      - run: ./mvn clean package
       - store_artifacts:
-          path:  target
+          path:  ./target
   test:
     docker:
       - image: circleci/openjdk:11.0.3-jdk-stretch
     steps:
       - checkout
-      - run: mvn test
-      - store_test_results:
-          path: target/surefire-reports
-      - run: mvn jacoco:report
+      - attach_workspace:
+          at: ./target
+      - run: ./mvn test
+      - run: ./mvnw test verify
       - store_artifacts:
           path: target/site/jacoco/index.html
