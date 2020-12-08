@@ -5,7 +5,7 @@ jobs:
       - image: circleci/openjdk:11.0.3-jdk-stretch
     steps:
       - checkout
-      - run: ./mvn clean package
+      - run: ./mvnw clean package
       - store_artifacts:
           path:  ./target
   test:
@@ -15,7 +15,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ./target
-      - run: ./mvn test
+      - run: ./mvnw test
       - run: ./mvnw test verify
       - store_artifacts:
           path: target/site/jacoco/index.html
