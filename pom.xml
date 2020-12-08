@@ -84,6 +84,10 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <excludes>
+                        <exclude>br/com/vfmneto/filebatchprocessor/FileBatchProcessorApplication.class</exclude>
+                        <exclude>br/com/vfmneto/filebatchprocessor/config/*.class</exclude>
+                    </excludes>
                     <systemPropertyVariables>
                         <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
                     </systemPropertyVariables>
