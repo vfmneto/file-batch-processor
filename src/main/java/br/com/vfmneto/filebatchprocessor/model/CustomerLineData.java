@@ -1,6 +1,6 @@
 package br.com.vfmneto.filebatchprocessor.model;
 
-public class ClientLineData extends LineData {
+public class CustomerLineData extends LineData {
 
     private String cnpj;
     private String name;

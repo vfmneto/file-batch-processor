@@ -1,6 +1,6 @@
 package br.com.vfmneto.filebatchprocessor.processor;
 
-import br.com.vfmneto.filebatchprocessor.service.OutputDataFileConsolidService;
+import br.com.vfmneto.filebatchprocessor.service.ConsolidatedOutputDataFileService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,11 +18,11 @@ class InputDataFileItemProcessorTest {
 
     private InputDataFileItemProcessor processor;
 
-    @Mock private OutputDataFileConsolidService outputDataFileConsolidServiceMock;
+    @Mock private ConsolidatedOutputDataFileService consolidatedOutputDataFileServiceMock;
 
     @BeforeEach
     void setup() {
-        processor = new InputDataFileItemProcessor(outputDataFileConsolidServiceMock);
+        processor = new InputDataFileItemProcessor(consolidatedOutputDataFileServiceMock);
     }
 
     @Test
@@ -32,7 +32,7 @@ class InputDataFileItemProcessorTest {
         var inputDataFileValid = createInputDataFileValid();
         var outputDataFileValid = createOutputDataFileValid();
 
-        when(outputDataFileConsolidServiceMock.consolid(inputDataFileValid)).thenReturn(outputDataFileValid);
+        when(consolidatedOutputDataFileServiceMock.consolid(inputDataFileValid)).thenReturn(outputDataFileValid);
 
         var result = processor.process(inputDataFileValid);
 

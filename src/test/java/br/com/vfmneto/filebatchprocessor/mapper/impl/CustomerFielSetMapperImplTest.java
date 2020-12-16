@@ -9,18 +9,18 @@ import static br.com.vfmneto.filebatchprocessor.mapper.MapperConstants.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ClientFielSetMapperImplTest {
+class CustomerFielSetMapperImplTest {
 
     public static final String SAMPLE_TYPE = "001";
     public static final String SAMPLE_CNPJ = "12345678000195";
     public static final String SAMPLE_NAME = "SAMPLE CLIENT NAME";
     public static final String SAMPLE_BUSINESS_AREA = "SAMPLE BUSINESS AREA";
 
-    private ClientFielSetMapperImpl mapper;
+    private CustomerFielSetMapperImpl mapper;
 
     @BeforeEach
     void setup() {
-        mapper = new ClientFielSetMapperImpl();
+        mapper = new CustomerFielSetMapperImpl();
     }
 
     @Test
@@ -30,12 +30,12 @@ class ClientFielSetMapperImplTest {
         var tokens = new String[]{SAMPLE_TYPE, SAMPLE_CNPJ, SAMPLE_NAME, SAMPLE_BUSINESS_AREA};
         var names = new String[]{TYPE, CNPJ, NAME, BUSINESS_AREA};
 
-        var clientLineData = mapper.mapFieldSet(new DefaultFieldSet(tokens, names));
+        var customerLineData = mapper.mapFieldSet(new DefaultFieldSet(tokens, names));
 
-        assertAll("Different client than expected",
-               () -> assertEquals(SAMPLE_TYPE, clientLineData.getType()),
-               () -> assertEquals(SAMPLE_NAME, clientLineData.getName()),
-               () -> assertEquals(SAMPLE_BUSINESS_AREA, clientLineData.getBusinessArea()),
-               () -> assertEquals(SAMPLE_CNPJ, clientLineData.getCnpj()));
+        assertAll("Different customer than expected",
+               () -> assertEquals(SAMPLE_TYPE, customerLineData.getType()),
+               () -> assertEquals(SAMPLE_NAME, customerLineData.getName()),
+               () -> assertEquals(SAMPLE_BUSINESS_AREA, customerLineData.getBusinessArea()),
+               () -> assertEquals(SAMPLE_CNPJ, customerLineData.getCnpj()));
     }
 }

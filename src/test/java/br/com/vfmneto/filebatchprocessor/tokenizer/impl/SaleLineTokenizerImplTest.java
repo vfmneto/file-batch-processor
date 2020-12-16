@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SaleLineTokenizerImplTest {
 
     @Test
-    @DisplayName("When creating it should setup the client line")
+    @DisplayName("When creating it should setup the customer line")
     void shouldSetupTheClientLine() {
         var tokenizer = new SaleLineTokenizerImpl();
         var tokenize = tokenizer.tokenize("003ç10ç[1-10-100,2-30-2.50,3-40-3.10]çPedro");

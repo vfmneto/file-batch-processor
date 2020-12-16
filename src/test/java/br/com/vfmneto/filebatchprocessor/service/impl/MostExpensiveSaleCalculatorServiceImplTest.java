@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 import static br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture.SAMPLE_SALE_ID_TWO;
 import static br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture.createInputDataFileValid;
 
-class CalculatorSaleMostExpensiveServiceImplTest {
+class MostExpensiveSaleCalculatorServiceImplTest {
 
-    private CalculatorSaleMostExpensiveServiceImpl calculatorSaleMostExpensiveService;
+    private MostExpensiveSaleCalculatorServiceImpl calculatorSaleMostExpensiveService;
 
     @BeforeEach
     void setup() {
-        calculatorSaleMostExpensiveService = new CalculatorSaleMostExpensiveServiceImpl();
+        calculatorSaleMostExpensiveService = new MostExpensiveSaleCalculatorServiceImpl();
     }
 
     @Test

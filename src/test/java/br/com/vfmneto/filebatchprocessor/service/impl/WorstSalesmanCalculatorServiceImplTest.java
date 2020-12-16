@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 import static br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture.SAMPLE_SALESMAN_NAME_ONE;
 import static br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture.createInputDataFileValid;
 
-class CalculatorWorstSalesmanServiceImplTest {
+class WorstSalesmanCalculatorServiceImplTest {
 
-    private CalculatorWorstSalesmanServiceImpl calculatorWorstSalesmanService;
+    private WorstSalesmanCalculatorServiceImpl calculatorWorstSalesmanService;
 
     @BeforeEach
     void setup() {
-        calculatorWorstSalesmanService = new CalculatorWorstSalesmanServiceImpl();
+        calculatorWorstSalesmanService = new WorstSalesmanCalculatorServiceImpl();
     }
 
     @Test

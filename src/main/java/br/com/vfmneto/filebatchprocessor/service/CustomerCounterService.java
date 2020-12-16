@@ -2,7 +2,7 @@ package br.com.vfmneto.filebatchprocessor.service;
 
 import br.com.vfmneto.filebatchprocessor.model.InputDataFile;
 
-public interface CalculatorSaleMostExpensiveService {
+public interface CustomerCounterService {
 
-    Long calculate(InputDataFile inputDataFile);
+    Long count(InputDataFile inputDataFile);
 }

@@ -1,6 +1,6 @@
 package br.com.vfmneto.filebatchprocessor.fixture;
 
-import br.com.vfmneto.filebatchprocessor.model.ClientLineData;
+import br.com.vfmneto.filebatchprocessor.model.CustomerLineData;
 import br.com.vfmneto.filebatchprocessor.model.InputDataFile;
 import br.com.vfmneto.filebatchprocessor.model.LineData;
 import br.com.vfmneto.filebatchprocessor.model.SalesmanLineData;
@@ -23,8 +23,8 @@ public class InputDataFileFixture {
 
     public static InputDataFile createInputDataFileValid() {
         List<LineData> linesData = new ArrayList<>();
-        linesData.add(new ClientLineData());
-        linesData.add(new ClientLineData());
+        linesData.add(new CustomerLineData());
+        linesData.add(new CustomerLineData());
         linesData.add(new SalesmanLineData());
 
         linesData.add(createSaleLineData(SAMPLE_SALE_ID_ONE, SAMPLE_SALESMAN_NAME_ONE, asList(createSaleItemLineData(1l, BigDecimal.ONE, BigDecimal.TEN))));

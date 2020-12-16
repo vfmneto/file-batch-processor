@@ -8,14 +8,14 @@ import java.util.Objects;
 public class OutputDataFile implements Serializable {
 
     private String fileName;
-    private Long clientQuantity;
+    private Long customerQuantity;
     private Long salespeopleQuantity;
     private Long mostExpensiveSaleId;
     private String worstSalesman;
 
-    protected OutputDataFile(String fileName, Long clientQuantity, Long salespeopleQuantity, Long mostExpensiveSaleId, String worstSalesman) {
+    protected OutputDataFile(String fileName, Long customerQuantity, Long salespeopleQuantity, Long mostExpensiveSaleId, String worstSalesman) {
         this.fileName = Objects.requireNonNull(fileName);
-        this.clientQuantity = Objects.requireNonNull(clientQuantity);
+        this.customerQuantity = Objects.requireNonNull(customerQuantity);
         this.salespeopleQuantity = Objects.requireNonNull(salespeopleQuantity);
         this.mostExpensiveSaleId = Objects.requireNonNull(mostExpensiveSaleId);
         this.worstSalesman = Objects.requireNonNull(worstSalesman);
@@ -25,8 +25,8 @@ public class OutputDataFile implements Serializable {
         return fileName;
     }
 
-    public Long getClientQuantity() {
-        return clientQuantity;
+    public Long getCustomerQuantity() {
+        return customerQuantity;
     }
 
     public Long getSalespeopleQuantity() {
@@ -43,7 +43,7 @@ public class OutputDataFile implements Serializable {
 
     public List<String> getLines() {
         List<String> lines = new ArrayList<>();
-        lines.add("Quantidade de clientes no arquivo de entrada: " + clientQuantity);
+        lines.add("Quantidade de clientes no arquivo de entrada: " + customerQuantity);
         lines.add("Quantidade de vendedor no arquivo de entrada: " + salespeopleQuantity);
         lines.add("ID da venda mais cara: " + getMostExpensiveSaleId());
         lines.add("O pior vendedor: " + getWorstSalesman());
@@ -57,7 +57,7 @@ public class OutputDataFile implements Serializable {
     public static final class Builder {
 
         private String fileName;
-        private Long clientQuantity;
+        private Long customerQuantity;
         private Long salespeopleQuantity;
         private Long mostExpensiveSaleId;
         private String worstSalesman;
@@ -67,8 +67,8 @@ public class OutputDataFile implements Serializable {
             return this;
         }
 
-        public Builder withClientQuantity(Long clientQuantity) {
-            this.clientQuantity = clientQuantity;
+        public Builder withClientQuantity(Long customerQuantity) {
+            this.customerQuantity = customerQuantity;
             return this;
         }
 
@@ -88,7 +88,7 @@ public class OutputDataFile implements Serializable {
         }
 
         public OutputDataFile build() {
-            return new OutputDataFile(fileName, clientQuantity, salespeopleQuantity, mostExpensiveSaleId, worstSalesman);
+            return new OutputDataFile(fileName, customerQuantity, salespeopleQuantity, mostExpensiveSaleId, worstSalesman);
         }
     }
 

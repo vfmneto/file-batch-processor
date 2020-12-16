@@ -1,9 +1,9 @@
 package br.com.vfmneto.filebatchprocessor.util.impl;
 
 import br.com.vfmneto.filebatchprocessor.config.ApplicationProperties;
-import br.com.vfmneto.filebatchprocessor.exception.ErrorGeneratingFileException;
-import br.com.vfmneto.filebatchprocessor.exception.ErrorMovingFileToOutputDirectoryException;
-import br.com.vfmneto.filebatchprocessor.exception.ErrorReadingFileException;
+import br.com.vfmneto.filebatchprocessor.exception.FileGenerationException;
+import br.com.vfmneto.filebatchprocessor.exception.FileMoveToOutputDirectoryException;
+import br.com.vfmneto.filebatchprocessor.exception.FileReadException;
 import br.com.vfmneto.filebatchprocessor.model.InputFile;
 import br.com.vfmneto.filebatchprocessor.model.OutputDataFile;
 import br.com.vfmneto.filebatchprocessor.util.FileComponent;
@@ -37,7 +37,7 @@ public class FileComponentImpl implements FileComponent {
         try {
             return unmodifiableList(Files.readAllLines(inputFile.getPath(), StandardCharsets.UTF_8));
         } catch (IOException e) {
-            throw new ErrorReadingFileException(e);
+            throw new FileReadException(e);
         }
     }
 
@@ -59,7 +59,7 @@ public class FileComponentImpl implements FileComponent {
             Files.write(Paths.get(pathFile), outputDataFile.getLines());
             log.info("Generated file for: {}", pathFile);
         } catch (IOException e) {
-            throw new ErrorGeneratingFileException(e);
+            throw new FileGenerationException(e);
         }
     }
 
@@ -78,7 +78,7 @@ public class FileComponentImpl implements FileComponent {
             Files.move(inputFile.getPath(), Paths.get(directory + "/" + inputFile.getFilename()));
             log.info("Moved file to: {}", directory + "/" + inputFile.getFilename());
         } catch (IOException e) {
-            throw new ErrorMovingFileToOutputDirectoryException(e);
+            throw new FileMoveToOutputDirectoryException(e);
         }
     }
 

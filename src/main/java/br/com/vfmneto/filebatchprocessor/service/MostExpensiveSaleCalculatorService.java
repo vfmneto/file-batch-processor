@@ -2,7 +2,7 @@ package br.com.vfmneto.filebatchprocessor.service;
 
 import br.com.vfmneto.filebatchprocessor.model.InputDataFile;
 
-public interface CalculatorWorstSalesmanService {
+public interface MostExpensiveSaleCalculatorService {
 
-    String calculate(InputDataFile inputDataFile);
+    Long calculate(InputDataFile inputDataFile);
 }

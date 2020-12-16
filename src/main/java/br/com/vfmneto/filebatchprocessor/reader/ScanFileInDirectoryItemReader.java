@@ -1,6 +1,6 @@
 package br.com.vfmneto.filebatchprocessor.reader;
 
-import br.com.vfmneto.filebatchprocessor.exception.FileInvalidExtensionException;
+import br.com.vfmneto.filebatchprocessor.exception.InvalidFileExtensionException;
 import br.com.vfmneto.filebatchprocessor.mapper.FileLineDataMapper;
 import br.com.vfmneto.filebatchprocessor.model.InputDataFile;
 import br.com.vfmneto.filebatchprocessor.model.InputFile;
@@ -31,7 +31,7 @@ public class ScanFileInDirectoryItemReader implements ItemReader<InputDataFile> 
             var linesData = fileLineDataMapper.mapFile(inputFile);
             fileComponent.moveToProcessed(inputFile);
             return new InputDataFile(inputFile.getFilename(), linesData);
-        } catch (FileInvalidExtensionException e) {
+        } catch (InvalidFileExtensionException e) {
             fileComponent.moveToError(inputFile);
             return null;
         }
@@ -39,7 +39,7 @@ public class ScanFileInDirectoryItemReader implements ItemReader<InputDataFile> 
 
     private void validInputFileExtension(InputFile inputFile) {
         if (inputFile.isInvalidExtension()) {
-            throw new FileInvalidExtensionException(inputFile.getExtension());
+            throw new InvalidFileExtensionException(inputFile.getExtension());
         }
     }
 }

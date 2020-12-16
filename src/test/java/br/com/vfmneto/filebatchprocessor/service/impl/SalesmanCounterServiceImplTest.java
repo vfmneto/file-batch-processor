@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 
 import static br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture.createInputDataFileValid;
 
-class SalespeopleCounterServiceImplTest {
+class SalesmanCounterServiceImplTest {
 
-    private SalespeopleCounterServiceImpl salespeopleCounterService;
+    private SalesmanCounterServiceImpl salespeopleCounterService;
 
     @BeforeEach
     void setup() {
-        salespeopleCounterService = new SalespeopleCounterServiceImpl();
+        salespeopleCounterService = new SalesmanCounterServiceImpl();
     }
 
     @Test

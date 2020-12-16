@@ -1,9 +1,9 @@
 package br.com.vfmneto.filebatchprocessor.util.impl;
 
 import br.com.vfmneto.filebatchprocessor.config.ApplicationProperties;
-import br.com.vfmneto.filebatchprocessor.exception.ErrorGeneratingFileException;
-import br.com.vfmneto.filebatchprocessor.exception.ErrorMovingFileToOutputDirectoryException;
-import br.com.vfmneto.filebatchprocessor.exception.ErrorReadingFileException;
+import br.com.vfmneto.filebatchprocessor.exception.FileGenerationException;
+import br.com.vfmneto.filebatchprocessor.exception.FileMoveToOutputDirectoryException;
+import br.com.vfmneto.filebatchprocessor.exception.FileReadException;
 import br.com.vfmneto.filebatchprocessor.fixture.OutputDataFileFixture;
 import br.com.vfmneto.filebatchprocessor.model.InputFile;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,7 +64,7 @@ class FileComponentImplTest {
 
         var inputFile = new InputFile(Paths.get("path not exists"));
 
-        assertThrows(ErrorReadingFileException.class, () -> {
+        assertThrows(FileReadException.class, () -> {
             fileComponent.readAllLines(inputFile);
         });
 
@@ -98,7 +98,7 @@ class FileComponentImplTest {
 
         var inputFile = new InputFile(Paths.get("path not exists"));
 
-        assertThrows(ErrorMovingFileToOutputDirectoryException.class, () -> {
+        assertThrows(FileMoveToOutputDirectoryException.class, () -> {
             fileComponent.moveToProcessed(inputFile);
         });
     }
@@ -193,7 +193,7 @@ class FileComponentImplTest {
         when(applicationPropertiesMock.getDirectory()).thenReturn(directoryMock);
         when(directoryMock.getOut()).thenReturn("path not exists");
 
-        assertThrows(ErrorGeneratingFileException.class, () -> {
+        assertThrows(FileGenerationException.class, () -> {
             fileComponent.writeToOutDirectory(OutputDataFileFixture.createOutputDataFileValid());
         });
 

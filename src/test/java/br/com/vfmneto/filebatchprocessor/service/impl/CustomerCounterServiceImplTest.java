@@ -7,20 +7,20 @@ import org.junit.jupiter.api.Test;
 import static br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture.createInputDataFileValid;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ClientCounterServiceImplTest {
+class CustomerCounterServiceImplTest {
 
-    private ClientCounterServiceImpl clientCounterService;
+    private CustomerCounterServiceImpl customerCounterService;
 
     @BeforeEach
     void setup() {
-        clientCounterService = new ClientCounterServiceImpl();
+        customerCounterService = new CustomerCounterServiceImpl();
     }
 
     @Test
-    @DisplayName("Given that input data has two clients it should return number of clients two")
+    @DisplayName("Given that input data has two customers it should return number of customers two")
     void shouldReturnNumberOfClientsTwo() {
 
-        var count = clientCounterService.count(createInputDataFileValid());
+        var count = customerCounterService.count(createInputDataFileValid());
         assertThat(count).isEqualTo(2);
     }
 
