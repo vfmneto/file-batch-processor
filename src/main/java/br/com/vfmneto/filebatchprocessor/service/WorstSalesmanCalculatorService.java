@@ -1,8 +1,8 @@
 package br.com.vfmneto.filebatchprocessor.service;
 
-import br.com.vfmneto.filebatchprocessor.model.InputDataFile;
+import br.com.vfmneto.filebatchprocessor.model.HasLineData;
 
 public interface WorstSalesmanCalculatorService {
 
-    String calculate(InputDataFile inputDataFile);
+    String calculate(HasLineData hasLineData);
 }

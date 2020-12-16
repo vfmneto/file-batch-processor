@@ -69,6 +69,7 @@ https://github.com/vfmneto/file-batch-processor
  - Configurado aplicação para "Chunk-oriented Processing" quebrando em pedaços a leitura/processamento dos arquivos onde a cada 5 arquivos lidos será feita escrita em lotes de 5 arquivos lidos e processados;
  - Melhoria na organização de pacotes;
  - Extraído classe pai com comportamento comum as classes filhas;
+ - Segregação de interface;
 
 ### Tecnologias
 * [Spring Boot - [2.4.0]](https://docs.spring.io/spring-boot/docs/2.4.0/reference/htmlsingle/)

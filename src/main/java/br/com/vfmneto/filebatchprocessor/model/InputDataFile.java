@@ -2,7 +2,7 @@ package br.com.vfmneto.filebatchprocessor.model;
 
 import java.util.List;
 
-public class InputDataFile {
+public class InputDataFile implements HasLineData {
 
     private String fileName;
     private List<LineData> lineData;
@@ -16,6 +16,7 @@ public class InputDataFile {
         return fileName;
     }
 
+    @Override
     public List<LineData> getLineData() {
         return lineData;
     }
