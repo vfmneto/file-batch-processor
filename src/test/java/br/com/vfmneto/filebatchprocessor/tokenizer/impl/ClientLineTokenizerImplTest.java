@@ -1,4 +1,4 @@
-package br.com.vfmneto.filebatchprocessor.tokenizer;
+package br.com.vfmneto.filebatchprocessor.tokenizer.impl;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

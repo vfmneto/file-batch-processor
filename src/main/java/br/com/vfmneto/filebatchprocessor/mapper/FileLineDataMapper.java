@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface FileLineDataMapper {
 
-    List<LineData> mapFile(InputFile inputFile) throws Exception;
+    List<LineData> mapFile(InputFile inputFile);
 }

@@ -1,15 +1,18 @@
 package br.com.vfmneto.filebatchprocessor.config;
 
-import br.com.vfmneto.filebatchprocessor.mapper.*;
+import br.com.vfmneto.filebatchprocessor.mapper.ClientFielSetMapper;
+import br.com.vfmneto.filebatchprocessor.mapper.FileLineDataMapper;
+import br.com.vfmneto.filebatchprocessor.mapper.SalesmanFieldSetMapper;
+import br.com.vfmneto.filebatchprocessor.mapper.impl.SaleFieldSetMapperImpl;
 import br.com.vfmneto.filebatchprocessor.model.InputDataFile;
 import br.com.vfmneto.filebatchprocessor.model.OutputDataFile;
 import br.com.vfmneto.filebatchprocessor.processor.InputDataFileItemProcessor;
 import br.com.vfmneto.filebatchprocessor.reader.ScanFileInDirectoryItemReader;
+import br.com.vfmneto.filebatchprocessor.service.OutputDataFileConsolidService;
 import br.com.vfmneto.filebatchprocessor.tokenizer.ClientLineTokenizer;
 import br.com.vfmneto.filebatchprocessor.tokenizer.SaleLineTokenizer;
 import br.com.vfmneto.filebatchprocessor.tokenizer.SalesmanLineTokenizer;
 import br.com.vfmneto.filebatchprocessor.util.FileComponent;
-import br.com.vfmneto.filebatchprocessor.util.FileComponentImpl;
 import br.com.vfmneto.filebatchprocessor.writer.FileItemWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -43,9 +46,6 @@ public class BatchConfiguration {
     private StepBuilderFactory stepBuilderFactory;
 
     @Autowired
-    private ApplicationProperties applicationProperties;
-
-    @Autowired
     private SalesmanLineTokenizer salesmanLineTokenizer;
 
     @Autowired
@@ -69,6 +69,9 @@ public class BatchConfiguration {
     @Autowired
     private FileComponent fileComponent;
 
+    @Autowired
+    private OutputDataFileConsolidService outputDataFileConsolidService;
+
     @Bean
     public Job readFilesJob() {
         return jobBuilderFactory
@@ -80,10 +83,11 @@ public class BatchConfiguration {
 
     @Bean
     public Step step() {
-        return stepBuilderFactory.get("step").<InputDataFile, OutputDataFile>chunk(1)
+        return stepBuilderFactory.get("step").<InputDataFile, OutputDataFile>chunk(5)
                 .reader(fileItemReader())
                 .processor(fileItemProcessor())
                 .writer(writer())
+                .allowStartIfComplete(true)
                 .build();
     }
 
@@ -96,7 +100,7 @@ public class BatchConfiguration {
 
     @Bean
     public ItemProcessor<InputDataFile, OutputDataFile> fileItemProcessor() {
-        return new InputDataFileItemProcessor();
+        return new InputDataFileItemProcessor(outputDataFileConsolidService);
     }
 
     @Bean

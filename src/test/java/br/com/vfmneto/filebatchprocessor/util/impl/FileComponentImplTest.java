@@ -1,4 +1,4 @@
-package br.com.vfmneto.filebatchprocessor.util;
+package br.com.vfmneto.filebatchprocessor.util.impl;
 
 import br.com.vfmneto.filebatchprocessor.config.ApplicationProperties;
 import br.com.vfmneto.filebatchprocessor.exception.ErrorGeneratingFileException;
@@ -180,7 +180,7 @@ class FileComponentImplTest {
         var outputDataFileValid = createOutputDataFileValid();
         fileComponent.writeToOutDirectory(outputDataFileValid);
 
-        var generatedFilePath = Paths.get(outDirectory + "/" + outputDataFileValid.getFileNameAsDone());
+        var generatedFilePath = Paths.get(outDirectory + "/" + outputDataFileValid.getFilenameAsDone());
 
         assertAll(() -> assertThat(Files.exists(generatedFilePath)).isTrue(),
                   () -> assertLinesMatch(Files.readAllLines(generatedFilePath), outputDataFileValid.getLines()));

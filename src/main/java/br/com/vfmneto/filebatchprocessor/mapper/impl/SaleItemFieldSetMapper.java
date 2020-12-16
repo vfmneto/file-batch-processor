@@ -1,4 +1,4 @@
-package br.com.vfmneto.filebatchprocessor.mapper;
+package br.com.vfmneto.filebatchprocessor.mapper.impl;
 
 import br.com.vfmneto.filebatchprocessor.model.SaleItemLineData;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;

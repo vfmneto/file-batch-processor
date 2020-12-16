@@ -1,4 +1,4 @@
-package br.com.vfmneto.filebatchprocessor.util;
+package br.com.vfmneto.filebatchprocessor.util.impl;
 
 import br.com.vfmneto.filebatchprocessor.config.ApplicationProperties;
 import br.com.vfmneto.filebatchprocessor.exception.ErrorGeneratingFileException;
@@ -6,6 +6,7 @@ import br.com.vfmneto.filebatchprocessor.exception.ErrorMovingFileToOutputDirect
 import br.com.vfmneto.filebatchprocessor.exception.ErrorReadingFileException;
 import br.com.vfmneto.filebatchprocessor.model.InputFile;
 import br.com.vfmneto.filebatchprocessor.model.OutputDataFile;
+import br.com.vfmneto.filebatchprocessor.util.FileComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -43,7 +44,7 @@ public class FileComponentImpl implements FileComponent {
     @Override
     public List<InputFile> getFilesFromInDirectory() {
         try {
-            var inputFiles = Files.list(Paths.get(applicationProperties.getDirectory().getIn())).map(path -> new InputFile(path)).collect(Collectors.toList());
+            var inputFiles = Files.list(Paths.get(applicationProperties.getDirectory().getIn())).map(InputFile::new).collect(Collectors.toList());
             log.info("Listing ({}) files in: {}", inputFiles.size(), applicationProperties.getDirectory().getIn());
             return inputFiles;
         } catch (IOException e) {
@@ -54,7 +55,7 @@ public class FileComponentImpl implements FileComponent {
     @Override
     public void writeToOutDirectory(OutputDataFile outputDataFile) {
         try {
-            var pathFile = applicationProperties.getDirectory().getOut() + "/" + outputDataFile.getFileNameAsDone();
+            var pathFile = applicationProperties.getDirectory().getOut() + "/" + outputDataFile.getFilenameAsDone();
             Files.write(Paths.get(pathFile), outputDataFile.getLines());
             log.info("Generated file for: {}", pathFile);
         } catch (IOException e) {

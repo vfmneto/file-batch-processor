@@ -1,4 +1,4 @@
-package br.com.vfmneto.filebatchprocessor.mapper;
+package br.com.vfmneto.filebatchprocessor.mapper.impl;
 
 import br.com.vfmneto.filebatchprocessor.config.ApplicationProperties;
 import br.com.vfmneto.filebatchprocessor.exception.UnsupportedLineException;

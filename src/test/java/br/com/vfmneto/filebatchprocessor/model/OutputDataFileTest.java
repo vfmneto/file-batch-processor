@@ -1,12 +1,13 @@
 package br.com.vfmneto.filebatchprocessor.model;
 
-import br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture;
+import br.com.vfmneto.filebatchprocessor.fixture.OutputDataFileFixture;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture.*;
+import static br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture.SAMPLE_FILENAME;
+import static br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture.SAMPLE_SALESMAN_NAME_ONE;
 
 public class OutputDataFileTest {
 
@@ -14,31 +15,7 @@ public class OutputDataFileTest {
 
     @BeforeEach
     void setup() {
-        outputDataFile = new OutputDataFile(InputDataFileFixture.createInputDataFileValid());
-    }
-
-    @Test
-    @DisplayName("Given that input data has two clients it should return number of clients two")
-    void shouldReturnNumberOfClientsTwo() {
-        Assertions.assertThat(outputDataFile.getClientQuantity()).isEqualTo(2);
-    }
-
-    @Test
-    @DisplayName("Given that input data has 1 salespeople it should return number of salespeople one")
-    void shouldReturnNumberOfSalesmanOne() {
-        Assertions.assertThat(outputDataFile.getSalespeopleQuantity()).isEqualTo(1);
-    }
-
-    @Test
-    @DisplayName("Given that the seller one sold less should return joao as the worst one")
-    void shouldReturnSalesmanOneAsTheWorst() {
-        Assertions.assertThat(outputDataFile.getWorstSalesman()).isEqualTo(SAMPLE_SALESMAN_NAME_ONE);
-    }
-
-    @Test
-    @DisplayName("Given that sale two was the most expensive one should sale two as most expensive")
-    void shouldSaleOneAsMostExpensive() {
-        Assertions.assertThat(outputDataFile.getMostExpensiveSaleId()).isEqualTo(SAMPLE_SALE_ID_TWO);
+        outputDataFile = OutputDataFileFixture.createOutputDataFileValid();
     }
 
     @Test
@@ -56,7 +33,5 @@ public class OutputDataFileTest {
                           "ID da venda mais cara: 2",
                           "O pior vendedor: " + SAMPLE_SALESMAN_NAME_ONE);
     }
-
-
 
 }

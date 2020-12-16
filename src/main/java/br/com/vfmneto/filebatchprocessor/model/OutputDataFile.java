@@ -3,55 +3,33 @@ package br.com.vfmneto.filebatchprocessor.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static java.util.Comparator.comparing;
+import java.util.Objects;
 
 public class OutputDataFile implements Serializable {
 
     private String fileName;
-    private Integer clientQuantity;
-    private Integer salespeopleQuantity;
-    private Long mostExpensiveSaleId = null;
-    private String worstSalesman = null;
+    private Long clientQuantity;
+    private Long salespeopleQuantity;
+    private Long mostExpensiveSaleId;
+    private String worstSalesman;
 
-    public OutputDataFile(InputDataFile inputDataFile) {
-        var lines = inputDataFile.getLineData();
-        var salespeople = lines.stream().filter(line -> line instanceof SalesmanLineData).map(l -> (SalesmanLineData) l).collect(Collectors.toList());
-        var custumers = lines.stream().filter(line -> line instanceof ClientLineData).map(l -> (ClientLineData) l).collect(Collectors.toList());
-        var sales = lines.stream().filter(line -> line instanceof SaleLineData).map(line -> (SaleLineData) line).collect(Collectors.toList());
-
-        fileName = inputDataFile.getFileName();
-        clientQuantity = custumers.size();
-        salespeopleQuantity = salespeople.size();
-        var mostExpensiveSaleIdOptional = getMostExpensiveSaleId(sales);
-        if (mostExpensiveSaleIdOptional.isPresent()) {
-            mostExpensiveSaleId = mostExpensiveSaleIdOptional.get().getSaleId();
-        }
-        var worstSalesmanOptional = getWorstSalesman(sales);
-        if (worstSalesmanOptional.isPresent()) {
-            this.worstSalesman = worstSalesmanOptional.get().getSalesmanName();
-        }
-    }
-
-    private Optional<SaleLineData> getWorstSalesman(List<SaleLineData> sales) {
-        return sales.stream().min(comparing(SaleLineData::getValorTotalVenda));
-    }
-
-    private Optional<SaleLineData> getMostExpensiveSaleId(List<SaleLineData> sales) {
-        return sales.stream().max(comparing(SaleLineData::getValorTotalVenda));
+    protected OutputDataFile(String fileName, Long clientQuantity, Long salespeopleQuantity, Long mostExpensiveSaleId, String worstSalesman) {
+        this.fileName = Objects.requireNonNull(fileName);
+        this.clientQuantity = Objects.requireNonNull(clientQuantity);
+        this.salespeopleQuantity = Objects.requireNonNull(salespeopleQuantity);
+        this.mostExpensiveSaleId = Objects.requireNonNull(mostExpensiveSaleId);
+        this.worstSalesman = Objects.requireNonNull(worstSalesman);
     }
 
     public String getFileName() {
         return fileName;
     }
 
-    public Integer getClientQuantity() {
+    public Long getClientQuantity() {
         return clientQuantity;
     }
 
-    public Integer getSalespeopleQuantity() {
+    public Long getSalespeopleQuantity() {
         return salespeopleQuantity;
     }
 
@@ -72,7 +50,46 @@ public class OutputDataFile implements Serializable {
         return lines;
     }
 
-    public String getFileNameAsDone() {
+    public String getFilenameAsDone() {
         return getFileName().replace(".dat", ".done.dat");
     }
+
+    public static final class Builder {
+
+        private String fileName;
+        private Long clientQuantity;
+        private Long salespeopleQuantity;
+        private Long mostExpensiveSaleId;
+        private String worstSalesman;
+
+        public Builder withFileName(String fileName) {
+            this.fileName = fileName;
+            return this;
+        }
+
+        public Builder withClientQuantity(Long clientQuantity) {
+            this.clientQuantity = clientQuantity;
+            return this;
+        }
+
+        public Builder withSalespeopleQuantity(Long salespeopleQuantity) {
+            this.salespeopleQuantity = salespeopleQuantity;
+            return this;
+        }
+
+        public Builder withMostExpensiveSaleId(Long mostExpensiveSaleId) {
+            this.mostExpensiveSaleId = mostExpensiveSaleId;
+            return this;
+        }
+
+        public Builder withWorstSalesman(String worstSalesman) {
+            this.worstSalesman = worstSalesman;
+            return this;
+        }
+
+        public OutputDataFile build() {
+            return new OutputDataFile(fileName, clientQuantity, salespeopleQuantity, mostExpensiveSaleId, worstSalesman);
+        }
+    }
+
 }

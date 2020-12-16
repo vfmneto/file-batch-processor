@@ -10,7 +10,7 @@
     </parent>
     <groupId>br.com.vfmneto</groupId>
     <artifactId>file-batch-processor</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>file-batch-processor</name>
     <description>Aplicação para processamento em lote de arquivos de venda</description>
 
@@ -43,6 +43,11 @@
             <groupId>org.springframework.batch</groupId>
             <artifactId>spring-batch-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
         </dependency>
     </dependencies>
 

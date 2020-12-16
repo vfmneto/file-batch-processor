@@ -1,4 +1,4 @@
-package br.com.vfmneto.filebatchprocessor.mapper;
+package br.com.vfmneto.filebatchprocessor.mapper.impl;
 
 import br.com.vfmneto.filebatchprocessor.model.SaleItemLineData;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,10 +9,10 @@ import org.springframework.batch.item.file.transform.DefaultFieldSet;
 import java.math.BigDecimal;
 
 import static br.com.vfmneto.filebatchprocessor.mapper.MapperConstants.*;
-import static br.com.vfmneto.filebatchprocessor.mapper.MapperConstants.SALESMAN_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SaleFieldSetMapperImplTest {
 

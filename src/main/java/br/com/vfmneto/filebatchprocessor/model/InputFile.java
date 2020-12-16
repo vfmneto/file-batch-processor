@@ -1,5 +1,7 @@
 package br.com.vfmneto.filebatchprocessor.model;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.nio.file.Path;
 
 public class InputFile {
@@ -18,7 +20,11 @@ public class InputFile {
         return path.getFileName().toString();
     }
 
-    public Boolean isValidExtension() {
-        return getFilename().endsWith(".dat");
+    public String getExtension() {
+        return FilenameUtils.getExtension(getFilename());
+    }
+
+    public Boolean isInvalidExtension() {
+        return !"dat".equals(getExtension());
     }
 }

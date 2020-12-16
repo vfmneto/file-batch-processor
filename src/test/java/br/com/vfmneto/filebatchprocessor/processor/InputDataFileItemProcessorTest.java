@@ -1,29 +1,42 @@
 package br.com.vfmneto.filebatchprocessor.processor;
 
-import br.com.vfmneto.filebatchprocessor.model.InputDataFile;
-import org.assertj.core.api.Assertions;
+import br.com.vfmneto.filebatchprocessor.service.OutputDataFileConsolidService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
+import static br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture.createInputDataFileValid;
+import static br.com.vfmneto.filebatchprocessor.fixture.OutputDataFileFixture.createOutputDataFileValid;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
-import static br.com.vfmneto.filebatchprocessor.fixture.InputDataFileFixture.SAMPLE_FILENAME;
-
+@ExtendWith(MockitoExtension.class)
 class InputDataFileItemProcessorTest {
 
     private InputDataFileItemProcessor processor;
 
+    @Mock private OutputDataFileConsolidService outputDataFileConsolidServiceMock;
+
     @BeforeEach
     void setup() {
-        processor = new InputDataFileItemProcessor();
+        processor = new InputDataFileItemProcessor(outputDataFileConsolidServiceMock);
     }
 
     @Test
     @DisplayName("Should process for OutputDataFile")
     void shouldProcessForOutputDataFile() {
-        var process = processor.process(new InputDataFile(SAMPLE_FILENAME, new ArrayList<>()));
-        Assertions.assertThat(process.getFileName()).isEqualTo(SAMPLE_FILENAME);
+
+        var inputDataFileValid = createInputDataFileValid();
+        var outputDataFileValid = createOutputDataFileValid();
+
+        when(outputDataFileConsolidServiceMock.consolid(inputDataFileValid)).thenReturn(outputDataFileValid);
+
+        var result = processor.process(inputDataFileValid);
+
+        assertThat(result).isSameAs(outputDataFileValid);
     }
 
 }

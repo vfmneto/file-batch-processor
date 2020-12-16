@@ -1,4 +1,4 @@
-package br.com.vfmneto.filebatchprocessor.mapper;
+package br.com.vfmneto.filebatchprocessor.mapper.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

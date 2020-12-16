@@ -1,7 +1,7 @@
-package br.com.vfmneto.filebatchprocessor.mapper;
+package br.com.vfmneto.filebatchprocessor.mapper.impl;
 
+import br.com.vfmneto.filebatchprocessor.mapper.SalesmanFieldSetMapper;
 import br.com.vfmneto.filebatchprocessor.model.SalesmanLineData;
-import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.stereotype.Component;
 

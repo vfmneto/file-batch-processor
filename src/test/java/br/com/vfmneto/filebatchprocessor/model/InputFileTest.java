@@ -13,17 +13,17 @@ class InputFileTest {
     private InputFile inputFile;
 
     @Test
-    @DisplayName("Given that the file extension is valid it should return true")
-    void shouldReturnTrueWhenExtensionIsValid() {
-        inputFile = new InputFile(Path.of(SAMPLE_FILENAME));
-        assertThat(inputFile.isValidExtension()).isTrue();
+    @DisplayName("Given that the file extension is invalid it should return true")
+    void shouldReturnTrueWhenExtensionIsInvalid() {
+        inputFile = new InputFile(Path.of("invalid_extension.docx"));
+        assertThat(inputFile.isInvalidExtension()).isTrue();
     }
 
     @Test
-    @DisplayName("Given that the file extension is invalid it should return false")
+    @DisplayName("Given that the file extension is valid it should return false")
     void shouldReturnFalseWhenExtensionIsIvalid() {
-        inputFile = new InputFile(Path.of("invalid_extension.docx"));
-        assertThat(inputFile.isValidExtension()).isFalse();
+        inputFile = new InputFile(Path.of(SAMPLE_FILENAME));
+        assertThat(inputFile.isInvalidExtension()).isFalse();
     }
 
 }

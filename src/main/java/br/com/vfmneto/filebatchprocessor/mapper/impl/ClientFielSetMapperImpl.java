@@ -1,7 +1,7 @@
-package br.com.vfmneto.filebatchprocessor.mapper;
+package br.com.vfmneto.filebatchprocessor.mapper.impl;
 
+import br.com.vfmneto.filebatchprocessor.mapper.ClientFielSetMapper;
 import br.com.vfmneto.filebatchprocessor.model.ClientLineData;
-import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.stereotype.Component;
 

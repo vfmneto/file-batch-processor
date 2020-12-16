@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +24,12 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ScanFileInDirectoryItemReaderTest {
 
-    public static final String FILENAME_SAMPLE = "fileName sample";
+    public static final String FILENAME_SAMPLE_EXTENSION_VALID = "fileName.dat";
 
     private ScanFileInDirectoryItemReader reader;
 
     @Mock private FileLineDataMapper fileLineDataMapperMock;
     @Mock private FileComponent fileComponentMock;
-    @Mock private InputFile inputFileMock;
 
     @BeforeEach
     void setup() {
@@ -38,43 +38,42 @@ class ScanFileInDirectoryItemReaderTest {
 
     @Test
     @DisplayName("Given that there is a file it should return input data with data")
-    void shouldReturnInputDataWithData() throws Exception {
+    void shouldReturnInputDataWithData() {
 
-        when(fileComponentMock.getFilesFromInDirectory()).thenReturn(asList(inputFileMock));
+        InputFile inputFile = new InputFile(Path.of(FILENAME_SAMPLE_EXTENSION_VALID));
+
+        when(fileComponentMock.getFilesFromInDirectory()).thenReturn(asList(inputFile));
         List<LineData> linesData = new ArrayList<>();
-        when(fileLineDataMapperMock.mapFile(inputFileMock)).thenReturn(linesData);
-        when(inputFileMock.getFilename()).thenReturn(FILENAME_SAMPLE);
-        when(inputFileMock.isValidExtension()).thenReturn(true);
+        when(fileLineDataMapperMock.mapFile(inputFile)).thenReturn(linesData);
 
         var inputDataFile = reader.read();
 
-        verify(fileComponentMock).moveToProcessed(inputFileMock);
+        verify(fileComponentMock).moveToProcessed(inputFile);
 
         assertAll("Different inputDataFile than expected",
-                () -> assertEquals(inputDataFile.getFileName(), FILENAME_SAMPLE),
+                () -> assertEquals(inputDataFile.getFileName(), FILENAME_SAMPLE_EXTENSION_VALID),
                 () -> assertSame(inputDataFile.getLineData(), linesData));
     }
 
     @Test
     @DisplayName("Given that the file extension is invalid you should move it to the invalid directory")
-    void shouldMoveItToTheInvalidDirectory() throws Exception {
+    void shouldMoveItToTheInvalidDirectory() {
 
-        when(fileComponentMock.getFilesFromInDirectory()).thenReturn(asList(inputFileMock));
-        List<LineData> linesData = new ArrayList<>();
-        when(inputFileMock.isValidExtension()).thenReturn(false);
+        InputFile inputFile = new InputFile(Path.of("file.doc"));
+        when(fileComponentMock.getFilesFromInDirectory()).thenReturn(asList(inputFile));
 
         var inputDataFile = reader.read();
 
-        verify(fileComponentMock).moveToError(inputFileMock);
-        verify(fileComponentMock, never()).moveToProcessed(inputFileMock);
-        verify(fileLineDataMapperMock, never()).mapFile(inputFileMock);
+        verify(fileComponentMock).moveToError(inputFile);
+        verify(fileComponentMock, never()).moveToProcessed(inputFile);
+        verify(fileLineDataMapperMock, never()).mapFile(inputFile);
 
         assertNull(inputDataFile);
     }
 
     @Test
     @DisplayName("Given that there is no file, it should return null")
-    void shouldReturnNull() throws Exception {
+    void shouldReturnNull() {
 
         when(fileComponentMock.getFilesFromInDirectory()).thenReturn(emptyList());
 

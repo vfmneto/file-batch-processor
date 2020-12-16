@@ -1,7 +1,9 @@
 package br.com.vfmneto.filebatchprocessor.reader;
 
+import br.com.vfmneto.filebatchprocessor.exception.FileInvalidExtensionException;
 import br.com.vfmneto.filebatchprocessor.mapper.FileLineDataMapper;
 import br.com.vfmneto.filebatchprocessor.model.InputDataFile;
+import br.com.vfmneto.filebatchprocessor.model.InputFile;
 import br.com.vfmneto.filebatchprocessor.util.FileComponent;
 import org.springframework.batch.item.ItemReader;
 
@@ -17,21 +19,26 @@ public class ScanFileInDirectoryItemReader implements ItemReader<InputDataFile> 
     }
 
     @Override
-    public InputDataFile read() throws Exception {
+    public InputDataFile read() {
         var inputFiles = fileComponent.getFilesFromInDirectory();
         var inputFileOptional = inputFiles.stream().findFirst();
-        if (inputFileOptional.isPresent()) {
-            var inputFile = inputFileOptional.get();
-            if (inputFile.isValidExtension()) {
+
+        return inputFileOptional.map(inputFile -> {
+            try {
+                validInputFileExtension(inputFile);
                 var linesData = fileLineDataMapper.mapFile(inputFile);
                 fileComponent.moveToProcessed(inputFile);
                 return new InputDataFile(inputFile.getFilename(), linesData);
-            } else {
+            } catch (FileInvalidExtensionException e) {
                 fileComponent.moveToError(inputFile);
                 return null;
             }
-        }
-        return null;
+        }).orElse(null);
     }
 
+    private void validInputFileExtension(InputFile inputFile) {
+        if (inputFile.isInvalidExtension()) {
+            throw new FileInvalidExtensionException(inputFile.getExtension());
+        }
+    }
 }
