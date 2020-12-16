@@ -22,18 +22,19 @@ public class ScanFileInDirectoryItemReader implements ItemReader<InputDataFile> 
     public InputDataFile read() {
         var inputFiles = fileComponent.getFilesFromInDirectory();
         var inputFileOptional = inputFiles.stream().findFirst();
+        return inputFileOptional.map(this::readFile).orElse(null);
+    }
 
-        return inputFileOptional.map(inputFile -> {
-            try {
-                validInputFileExtension(inputFile);
-                var linesData = fileLineDataMapper.mapFile(inputFile);
-                fileComponent.moveToProcessed(inputFile);
-                return new InputDataFile(inputFile.getFilename(), linesData);
-            } catch (FileInvalidExtensionException e) {
-                fileComponent.moveToError(inputFile);
-                return null;
-            }
-        }).orElse(null);
+    private InputDataFile readFile(InputFile inputFile) {
+        try {
+            validInputFileExtension(inputFile);
+            var linesData = fileLineDataMapper.mapFile(inputFile);
+            fileComponent.moveToProcessed(inputFile);
+            return new InputDataFile(inputFile.getFilename(), linesData);
+        } catch (FileInvalidExtensionException e) {
+            fileComponent.moveToError(inputFile);
+            return null;
+        }
     }
 
     private void validInputFileExtension(InputFile inputFile) {
