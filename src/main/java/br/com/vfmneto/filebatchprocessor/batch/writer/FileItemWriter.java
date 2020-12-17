@@ -1,4 +1,4 @@
-package br.com.vfmneto.filebatchprocessor.writer;
+package br.com.vfmneto.filebatchprocessor.batch.writer;
 
 import br.com.vfmneto.filebatchprocessor.model.OutputDataFile;
 import br.com.vfmneto.filebatchprocessor.util.FileComponent;

@@ -1,4 +1,4 @@
-package br.com.vfmneto.filebatchprocessor.processor;
+package br.com.vfmneto.filebatchprocessor.batch.processor;
 
 import br.com.vfmneto.filebatchprocessor.service.ConsolidatedOutputDataFileService;
 import org.junit.jupiter.api.BeforeEach;

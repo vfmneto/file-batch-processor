@@ -1,4 +1,4 @@
-package br.com.vfmneto.filebatchprocessor.reader;
+package br.com.vfmneto.filebatchprocessor.batch.reader;
 
 import br.com.vfmneto.filebatchprocessor.mapper.FileLineDataMapper;
 import br.com.vfmneto.filebatchprocessor.model.InputFile;
